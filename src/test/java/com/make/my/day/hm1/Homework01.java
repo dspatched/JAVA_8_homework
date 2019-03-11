@@ -22,7 +22,7 @@ public class Homework01 {
   @Test
   public void concatenateChars() {
     //TODO: create your realization with lambda
-    Test01 sut = chars -> null;
+    Test01 sut = chars -> new String();
 
     String result_1 = sut.createMessage(new char[]{'a', 'b', 'c'});
     String result_2 = sut.createMessage(new char[]{'H', 'e', 'l', 'l', 'o'});

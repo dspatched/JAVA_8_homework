@@ -113,7 +113,7 @@ public class Homework01 {
     Transform transform = Integer::parseInt;
 
     //TODO: create your realization with lambda
-    Summarizer increment = ((firstNumber, secondNumber) -> firstNumber+secondNumber);
+    Summarizer increment = (firstNumber, secondNumber) -> firstNumber+secondNumber;
 
     Counter sut_1 = new Counter(transform, increment);
     Counter sut_2 = new Counter(transform, increment);

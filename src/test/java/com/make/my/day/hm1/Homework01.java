@@ -6,6 +6,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Comparator;
+
 import org.junit.Test;
 
 public class Homework01 {
@@ -22,7 +24,13 @@ public class Homework01 {
   @Test
   public void concatenateChars() {
     //TODO: create your realization with lambda
-    Test01 sut = chars -> null;
+
+    Test01 sut = chars -> {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char el:chars)
+            stringBuilder.append(el);
+        return stringBuilder.toString();
+    };
 
     String result_1 = sut.createMessage(new char[]{'a', 'b', 'c'});
     String result_2 = sut.createMessage(new char[]{'H', 'e', 'l', 'l', 'o'});
@@ -45,7 +53,7 @@ public class Homework01 {
   @Test
   public void isWordPalindrome() {
     //TODO: create your realization with lambda
-    Test02 sut = null;
+    Test02 sut = word -> new StringBuilder(word).reverse().toString().equals(word);
 
     boolean result_1 = sut.isReversedStringTheSame("abccba");
     boolean result_2 = sut.isReversedStringTheSame("level");
@@ -102,10 +110,10 @@ public class Homework01 {
   public void transformAndProvideSumWithCounter() {
 
     //TODO: create your realization with lambda
-    Transform transform = null;
+    Transform transform = Integer::parseInt;
 
     //TODO: create your realization with lambda
-    Summarizer increment = null;
+    Summarizer increment = ((firstNumber, secondNumber) -> firstNumber+secondNumber);
 
     Counter sut_1 = new Counter(transform, increment);
     Counter sut_2 = new Counter(transform, increment);
@@ -122,7 +130,7 @@ public class Homework01 {
     String[] names = {"Fred", "Maggy", "Suzan", "Loid", "Nir", "Lo", "Stefan", "Maximilian"};
 
     //TODO: Write Comparator realization with lambda expression
-    Arrays.sort(names, null);
+    Arrays.sort(names, Comparator.comparingInt(String::length));
 
     String[] expectedSortedNames = {"Lo", "Nir", "Fred", "Loid", "Maggy",
         "Suzan", "Stefan", "Maximilian"};

@@ -22,7 +22,7 @@ public class Homework01 {
   @Test
   public void concatenateChars() {
     //TODO: create your realization with lambda
-    Test01 sut = chars -> null;
+    Test01 sut = chars -> new String(chars); //String::new
 
     String result_1 = sut.createMessage(new char[]{'a', 'b', 'c'});
     String result_2 = sut.createMessage(new char[]{'H', 'e', 'l', 'l', 'o'});
@@ -45,7 +45,7 @@ public class Homework01 {
   @Test
   public void reversedWord() {
     //TODO: create your realization with lambda
-    Test02 sut = null;
+    Test02 sut = (str) -> new StringBuffer(str).reverse().toString().equals(str); //thanks to stackoverflow for "new StringBuffer(str).reverse().toString()"
 
     boolean result_1 = sut.isReversedStringTheSame("abccba");
     boolean result_2 = sut.isReversedStringTheSame("level");
@@ -102,10 +102,10 @@ public class Homework01 {
   public void transformAndProvideSumWithCounter() {
 
     //TODO: create your realization with lambda
-    Transform transform = null;
+    Transform transform = (str) -> Integer.parseInt(str); //Integer::parseInt
 
     //TODO: create your realization with lambda
-    Summarizer increment = null;
+    Summarizer increment = (a, b) -> a + b; // You should be fired for that name
 
     Counter sut_1 = new Counter(transform, increment);
     Counter sut_2 = new Counter(transform, increment);
@@ -117,11 +117,11 @@ public class Homework01 {
   }
 
   @Test
-  public void sortByNameDistinct() {
+  public void sortByNameDistinct() { // "Distinct".equals("Unique") ? YES : you didnt work with SQL
     String[] names = {"Fred", "Maggy", "Suzan", "Loid", "Nir", "Lo", "Stefan", "Maximilian"};
 
     //TODO: Write Comparator realization with lambda expression
-    Arrays.sort(names, null);
+    Arrays.sort(names, (o1, o2) -> o1.length() < o2.length() ? -1 : 1);
 
     String[] expectedSortedNames = {"Lo", "Nir", "Fred", "Loid", "Maggy",
         "Suzan", "Stefan", "Maximilian"};

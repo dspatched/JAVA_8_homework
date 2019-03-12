@@ -22,7 +22,7 @@ public class Homework01 {
   @Test
   public void concatenateChars() {
     //TODO: create your realization with lambda
-    Test01 sut = chars -> null;
+    Test01 sut = chars -> new String(chars);
 
     String result_1 = sut.createMessage(new char[]{'a', 'b', 'c'});
     String result_2 = sut.createMessage(new char[]{'H', 'e', 'l', 'l', 'o'});
@@ -45,7 +45,7 @@ public class Homework01 {
   @Test
   public void reversedWord() {
     //TODO: create your realization with lambda
-    Test02 sut = null;
+    Test02 sut = word ->  new StringBuilder(word).reverse().toString().equals(word);
 
     boolean result_1 = sut.isReversedStringTheSame("abccba");
     boolean result_2 = sut.isReversedStringTheSame("level");
@@ -85,8 +85,7 @@ public class Homework01 {
     private Transform transform;
     private Summarizer summarizer;
 
-    public Counter(Transform transform,
-        Summarizer summarizer) {
+    public Counter(Transform transform, Summarizer summarizer) {
       this.transform = transform;
       this.summarizer = summarizer;
     }
@@ -102,10 +101,10 @@ public class Homework01 {
   public void transformAndProvideSumWithCounter() {
 
     //TODO: create your realization with lambda
-    Transform transform = null;
+    Transform transform = str -> Integer.parseInt(str);
 
     //TODO: create your realization with lambda
-    Summarizer increment = null;
+    Summarizer increment = (int1, int2) -> Integer.sum(int1, int2);
 
     Counter sut_1 = new Counter(transform, increment);
     Counter sut_2 = new Counter(transform, increment);
@@ -117,17 +116,16 @@ public class Homework01 {
   }
 
   @Test
-  public void sortByNameDistinct() {
+  public void sortByNameLength() {
     String[] names = {"Fred", "Maggy", "Suzan", "Loid", "Nir", "Lo", "Stefan", "Maximilian"};
 
     //TODO: Write Comparator realization with lambda expression
-    Arrays.sort(names, null);
+    Arrays.sort(names, (str1, str2) -> str1.length() - str2.length());
 
     String[] expectedSortedNames = {"Lo", "Nir", "Fred", "Loid", "Maggy",
-        "Suzan", "Stefan", "Maximilian"};
+            "Suzan", "Stefan", "Maximilian"};
 
     assertArrayEquals(expectedSortedNames, names);
   }
 }
-
 

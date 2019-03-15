@@ -22,7 +22,13 @@ public class Homework02 {
   @Test
   public void concatenateChars() {
     //TODO: create your realization with lambda
-    Function<Character[], String> charConcatenator = null;
+    Function<Character[], String> charConcatenator = chars -> {
+      StringBuilder sb = new StringBuilder();
+      for (char letter : chars) {
+        sb.append(letter);
+      }
+      return sb.toString();
+    };
 
     String result_1 = charConcatenator.apply(new Character[]{'a', 'b', 'c'});
     String result_2 = charConcatenator.apply(new Character[]{'H', 'e', 'l', 'l', 'o'});
@@ -36,7 +42,7 @@ public class Homework02 {
   @Test
   public void reversedWord() {
     //TODO: create your realization with lambda
-    Predicate<String> isReversedStringTheSame = null;
+    Predicate<String> isReversedStringTheSame = word -> new StringBuilder(word).reverse().toString().equals(word);
 
     boolean result_1 = isReversedStringTheSame.test("abccba");
     boolean result_2 = isReversedStringTheSame.test("level");
@@ -74,10 +80,10 @@ public class Homework02 {
   @Test
   public void transformAndProvideSumWithCounter() {
     //TODO: create your realization with lambda
-    Function<String, Integer> transform = null;
+    Function<String, Integer> transform = Integer::parseInt;
 
     //TODO: create your realization with lambda
-    BinaryOperator<Integer> increment = null;
+    BinaryOperator<Integer> increment = (first, second) -> first + second;
 
     Counter sut_1 = new Counter(transform, increment);
     Counter sut_2 = new Counter(transform, increment);

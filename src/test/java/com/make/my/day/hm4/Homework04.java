@@ -258,33 +258,6 @@ public class Homework04 {
             new UserDTO("superman@epam.com", Arrays.asList(Role.ADMIN, Role.USER, Role.MANAGER))
     );
 
-  
-  @Test
-  public void convertFromUserToUserDTOTest() {
-    List<User> usersFromDB = Arrays.asList(
-        new User("superman@epam.com", Role.ADMIN),
-        new User("superman@epam.com", Role.USER),
-        new User("superman@epam.com", Role.MANAGER),
-        new User("someone@epam.com", Role.USER),
-        new User("sonofsun@epam.com", Role.USER),
-        new User("sonofsun@epam.com", Role.MANAGER)
-    );
-
-
-    //TODO: Make your realization
-    Map<String, List<Role>> map = usersFromDB.stream()
-            .collect( Collectors.toMap(User::getEmail, user -> new ArrayList<>(Arrays.asList(user.getRole())),
-                    (list1, list2) -> Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList())));
-    List<UserDTO> result = map.entrySet().stream()
-            .map(str -> new UserDTO(str.getKey(), str.getValue()))
-            .collect(Collectors.toList());
-
-    List<UserDTO> expected = Arrays.asList(
-        new UserDTO("someone@epam.com", Arrays.asList(Role.USER)),
-        new UserDTO("sonofsun@epam.com", Arrays.asList(Role.USER, Role.MANAGER)),
-        new UserDTO("superman@epam.com", Arrays.asList(Role.ADMIN, Role.USER, Role.MANAGER))
-    );
-
     assertEquals(expected, result);
   }
 }

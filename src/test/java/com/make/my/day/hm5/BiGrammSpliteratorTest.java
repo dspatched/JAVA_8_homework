@@ -78,6 +78,10 @@ public class BiGrammSpliteratorTest {
     class BigrammSpliterator implements Spliterator<String> {
         //ToDo: Write your own bi-gram spliterator
         //Todo: Should works in parallel
+        final String[] source;
+        int start = 0;
+        int end;
+        String delimiter;
 
         /**
          * Read about bi and n-grams https://en.wikipedia.org/wiki/N-gram.
@@ -85,28 +89,50 @@ public class BiGrammSpliteratorTest {
          * @param source
          */
         public BigrammSpliterator(List<String> source, String delimeter) {
+            this.source = source.stream().toArray(String[]::new);
+            this.delimiter = delimeter;
+            this.end = this.source.length;
+        }
+
+        private BigrammSpliterator(String[] source, int start, int end, String delimiter) {
+            this.source = source;
+            this.start = start;
+            this.end = end + 1;
+            this.delimiter = delimiter;
         }
 
         @Override
         public boolean tryAdvance(Consumer<? super String> action) {
-            return false;
+            if (start == end - 1) {
+                return false;
+            }
+            action.accept(source[start]+ delimiter + source[start+1]);
+            start++;
+            return true;
         }
 
         @Override
         public BigrammSpliterator trySplit() {
+            if (end - start > 2) {
+                int mid = (start + end)/2;
+                BigrammSpliterator firstHalf = new BigrammSpliterator(source, start, mid, " ");
+                start = mid;
+                return firstHalf;
+            }
             return null;
         }
 
         @Override
         public long estimateSize() {
-            return 0;
+            return (long) end - start;
         }
 
         @Override
         public int characteristics() {
-            return 0;
+            return SIZED | IMMUTABLE | SUBSIZED | ORDERED;
         }
     }
 
 
 }
+

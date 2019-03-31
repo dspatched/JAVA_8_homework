@@ -94,7 +94,7 @@ public class MergeSortJoinTest {
         long count = StreamSupport.stream(new MergeSortInnerJoinSpliterator<>(left,
                 right, Function.identity(), Function.identity(), true), false)
                 .count();
-        assertThat("Incorrect result", count + 1, is((long) Integer.MAX_VALUE >> 2));
+        assertThat("Incorrect result", count, is((long) Integer.MAX_VALUE >> 2));
 
     }
 
@@ -181,9 +181,13 @@ public class MergeSortJoinTest {
             return true;
         }
 
+        private boolean isLast() {
+            return !leftIter.hasNext();
+        }
+
         @Override
         public boolean tryAdvance(Consumer<? super Pair<L, R>> action) {
-            if (leftIter.hasNext() || rightIter.hasNext()) {
+            if (leftIter.hasNext() || rightIter.hasNext() || isLast()) {
                 if (mark == null) {
                     while (compare() < 0) {
                         if (!advanceLeft()) return false;
@@ -223,3 +227,4 @@ public class MergeSortJoinTest {
     }
 
 }
+
